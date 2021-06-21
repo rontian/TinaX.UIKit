@@ -1,9 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TinaX.Systems.Pipeline;
 using TinaX.UIKit.Entity;
+using TinaX.UIKit.Pipelines.OpenUI;
+using TinaX.UIKit.Router;
 using TinaX.XComponent;
 using UnityEngine;
 
@@ -12,6 +15,8 @@ namespace TinaX.UIKit
     public interface IUIKit
     {
         Camera UICamera { get; }
+        XPipeline<IOpenUIAsyncHandler> OpenUIAsyncPipeline { get; }
+        XPipeline<IOpenUIHandler> OpenUIPipeline { get; }
 
         void CloseUI(UIEntity entity, params object[] args);
         void CloseUI(string UIName, params object[] args);
@@ -43,5 +48,6 @@ namespace TinaX.UIKit
         
         IUIEntity OpenUIWithParam(string UIName, OpenUIParam openUIParam, params object[] args);
         void OpenUIWithParamAsync(string UIName, OpenUIParam openUIParam, Action<IUIEntity, XException> callback, params object[] args);
+        void SetUIRouter(IRouter router);
     }
 }
